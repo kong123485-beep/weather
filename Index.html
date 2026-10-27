@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Weather Forecast | kong123485-beep</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg1:#0f172a;
+    --bg2:#1e3a8a;
+    --card:#ffffff0f;
+    --card-border:#ffffff1a;
+    --text:#f8fafc;
+    --muted:#94a3b8;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{
+    font-family:'Outfit',system-ui,-apple-system,sans-serif;
+    background: radial-gradient(1200px 600px at 20% -10%, #3b82f6 0%, transparent 60%),
+                radial-gradient(900px 500px at 90% 10%, #8b5cf6 0%, transparent 60%),
+                linear-gradient(180deg,var(--bg1),var(--bg2));
+    color:var(--text);
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+  }
+  header{
+    padding:32px 24px 12px;
+    max-width:1100px;
+    margin:0 auto;
+    width:100%;
+  }
+  .topbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-size:13px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--muted);
+  }
+  .topbar a{color:var(--muted);text-decoration:none;border-bottom:1px dashed #ffffff30}
+  .hero{
+    margin-top:48px;
+  }
+  .hero h1{
+    font-size: clamp(36px, 6vw, 64px);
+    font-weight:700;
+    line-height:.95;
+    letter-spacing:-.03em;
+  }
+  .hero h1 span{
+    background:linear-gradient(90deg,#60a5fa,#a78bfa,#f472b6);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    background-clip:text;
+  }
+  .hero p{
+    margin-top:16px;
+    font-size:18px;
+    color:#cbd5e1;
+    max-width:520px;
+    line-height:1.6;
+  }
+  main{
+    max-width:1100px;
+    margin:0 auto;
+    width:100%;
+    padding:40px 24px 80px;
+    flex:1;
+  }
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+    gap:24px;
+    margin-top:36px;
+  }
+  .city-card{
+    position:relative;
+    border-radius:24px;
+    background:var(--card);
+    border:1px solid var(--card-border);
+    backdrop-filter: blur(20px);
+    padding:28px;
+    text-decoration:none;
+    color:var(--text);
+    overflow:hidden;
+    transition: transform .25s ease, background .25s ease, border-color .25s ease;
+  }
+  .city-card:hover{
+    transform: translateY(-4px);
+    background:#ffffff18;
+    border-color:#ffffff30;
+  }
+  .city-card::before{
+    content:'';
+    position:absolute;
+    inset:auto -30% -60% -30%;
+    height:70%;
+    background: radial-gradient(60% 80% at 50% 0%, var(--glow), transparent 70%);
+    opacity:.8;
+    pointer-events:none;
+  }
+  .city-card.hk{--glow:#38bdf833}
+  .city-card.tokyo{--glow:#fb718533}
+  .pill{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    font-size:12px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    background:#ffffff14;
+    border:1px solid #ffffff1f;
+    padding:6px 10px;
+    border-radius:999px;
+    color:#e2e8f0;
+  }
+  .city-name{
+    font-size:32px;
+    font-weight:600;
+    margin-top:20px;
+    display:flex;
+    align-items:baseline;
+    gap:12px;
+  }
+  .city-name small{
+    font-size:14px;
+    font-weight:400;
+    color:var(--muted);
+    letter-spacing:.04em;
+  }
+  .meta{
+    margin-top:8px;
+    color:#cbd5e1;
+    font-size:15px;
+    line-height:1.5;
+  }
+  .cta{
+    margin-top:24px;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-weight:500;
+    font-size:14px;
+    background:#ffffff;
+    color:#0f172a;
+    padding:10px 16px;
+    border-radius:999px;
+  }
+  .cta svg{width:16px;height:16px}
+  .footer{
+    max-width:1100px;
+    margin:0 auto;
+    width:100%;
+    padding:0 24px 32px;
+    color:#64748b;
+    font-size:13px;
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:12px;
+  }
+  .dots{
+    position:fixed;
+    inset:0;
+    background-image: radial-gradient(#ffffff0d 1px, transparent 1px);
+    background-size: 24px 24px;
+    pointer-events:none;
+    mask-image: radial-gradient(80% 60% at 50% 10%, black, transparent 90%);
+  }
+</style>
+</head>
+<body>
+<div class="dots"></div>
+
+<header>
+  <div class="topbar">
+    <div>kong123485-beep.github.io / weather</div>
+    <div><a href="https://github.com/kong123485-beep/weather" target="_blank">View Repo</a> · 3 Commits</div>
+  </div>
+  <div class="hero">
+    <h1>10-Day<br><span>Weather Forecast</span></h1>
+    <p>Simple, fast forecast pages for your favorite cities. Pick a location below — hosted on GitHub Pages.</p>
+  </div>
+</header>
+
+<main>
+  <div class="grid">
+    <a class="city-card hk" href="./10_hk.html">
+      <div class="pill">🇭🇰 HKG · Updated now</div>
+      <div class="city-name">Hong Kong <small>10_hk.html</small></div>
+      <div class="meta">Subtropical, humid. Check the 10-day outlook for temperature, rainfall chance and wind.</div>
+      <div class="cta">Open Forecast <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+    </a>
+
+    <a class="city-card tokyo" href="./10_tokyo.html">
+      <div class="pill">🇯🇵 TYO · Updated 46m ago</div>
+      <div class="city-name">Tokyo <small>10_tokyo.html</small></div>
+      <div class="meta">Four seasons in one city. View the full 10-day forecast for Tokyo.</div>
+      <div class="cta">Open Forecast <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+    </a>
+  </div>
+
+  <!-- How to add more cities -->
+  <div style="margin-top:48px; padding:20px 24px; border-radius:16px; background:#ffffff0a; border:1px dashed #ffffff1f; color:#94a3b8; font-size:13.5px; line-height:1.6">
+    <b style="color:#e2e8f0">Add a new city:</b> Upload <code style="background:#ffffff14; padding:2px 6px; border-radius:6px; color:#fff">10_osaka.html</code> to the repo, then duplicate one card above and change the href. The index will auto-style it.
+  </div>
+</main>
+
+<div class="footer">
+  <div>© 2026 kong123485-beep · Weather project on GitHub Pages</div>
+  <div>Built as static HTML — no tracking, no API keys</div>
+</div>
+
+<script>
+// Optional: auto-redirect if ?city=hk or ?city=tokyo
+const params = new URLSearchParams(location.search);
+const city = params.get('city');
+if(city){
+  const map = { hk: './10_hk.html', hongkong: './10_hk.html', tokyo: './10_tokyo.html', jp: './10_tokyo.html' };
+  if(map[city.toLowerCase()]) location.href = map[city.toLowerCase()];
+}
+</script>
+</body>
+</html>
